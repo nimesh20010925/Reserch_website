@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartRail Waste — IoT & ML Waste Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0f0d;
+      --bg2: #0f1a15;
+      --bg3: #162119;
+      --surface: #1c2b22;
+      --surface2: #243528;
+      --accent: #3effa0;
+      --accent2: #00d97e;
+      --accent3: #b8ffda;
+      --text: #e8f5ed;
+      --text-dim: #7da88d;
+      --text-muted: #4a6b56;
+      --border: #1e3326;
+      --border2: #2a4435;
+      --red: #ff4e4e;
+      --yellow: #ffd166;
+      --blue: #5ec8ff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10,15,13,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--text-dim); }
+
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 0.4rem 0.9rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+      border-radius: 4px;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 100%);
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(62,255,160,0.06) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 0.75rem 1.8rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--accent3); transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-dim);
+      padding: 0.75rem 1.8rem;
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .stat-item {}
+    .stat-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.8rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.1rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-dim);
+      font-size: 1rem;
+      max-width: 560px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    /* ── DOMAIN ── */
+    #domain { background: var(--bg2); }
+
+    .domain-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .domain-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+
+    .domain-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+
+    .domain-card.full { grid-column: 1 / -1; }
+
+    .dc-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border2);
+    }
+
+    .dc-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .dc-text {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+    }
+
+    /* literature survey table */
+    .lit-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: 1.5rem;
+    }
+
+    .lit-table th {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      background: var(--bg3);
+      color: var(--text-dim);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lit-table td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-dim);
+      vertical-align: top;
+    }
+
+    .lit-table tr:last-child td { border-bottom: none; }
+    .lit-table tr:hover td { background: var(--surface); }
+
+    .tag {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-green { background: rgba(62,255,160,0.12); color: var(--accent); }
+    .tag-yellow { background: rgba(255,209,102,0.12); color: var(--yellow); }
+    .tag-red { background: rgba(255,78,78,0.12); color: var(--red); }
+    .tag-blue { background: rgba(94,200,255,0.12); color: var(--blue); }
+
+    /* gap table */
+    .gap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      margin-top: 1.5rem;
+    }
+
+    .gap-table th {
+      text-align: left;
+      padding: 0.75rem 1.2rem;
+      background: var(--surface);
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      border-bottom: 2px solid var(--accent2);
+    }
+
+    .gap-table td {
+      padding: 0.85rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-dim);
+      vertical-align: top;
+    }
+
+    .gap-table tr:hover td { background: var(--surface); }
+
+    /* ── MILESTONES ── */
+    #milestones { background: var(--bg); }
+
+    .milestone-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .milestone-item {
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .milestone-item:last-child { border-bottom: none; }
+    .milestone-item:hover { background: var(--surface2); }
+
+    .mi-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .mi-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .mi-marks {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .mi-desc {
+      font-size: 0.84rem;
+      color: var(--text-dim);
+    }
+
+    /* ── METHODOLOGY ── */
+    #methodology { background: var(--bg2); }
+
+    .subsystem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .subsystem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .subsystem-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--accent2);
+    }
+
+    .sc-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .sc-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .sc-text {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+    }
+
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tech-pill {
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* perf metrics */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .metric-val {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.8rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .metric-name {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-top: 0.3rem;
+    }
+
+    /* ── DOCUMENTS ── */
+    #documents { background: var(--bg); }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .doc-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .doc-item:hover { border-color: var(--accent2); background: var(--surface2); }
+
+    .doc-icon {
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      border: 1px solid var(--border2);
+    }
+
+    .doc-name {
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .doc-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    /* ── SLIDES ── */
+    #slides { background: var(--bg2); }
+
+    .slides-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .slide-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+
+    .slide-card:hover { border-color: var(--accent2); }
+
+    .slide-thumb {
+      height: 120px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-thumb-inner {
+      width: 80%; height: 70%;
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-lines {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .slide-line {
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border2);
+    }
+
+    .slide-line:first-child {
+      width: 80%;
+      background: var(--accent2);
+      opacity: 0.5;
+    }
+
+    .slide-info { padding: 1rem 1.25rem; }
+
+    .slide-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .slide-status {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg); }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .team-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.25rem;
+      transition: border-color 0.25s;
+    }
+
+    .team-card:hover { border-color: var(--accent2); }
+
+    .team-avatar {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: var(--bg3);
+      border: 2px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .team-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .team-id {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .team-role {
+      font-size: 0.82rem;
+      color: var(--accent2);
+      font-weight: 500;
+      margin-top: 0.35rem;
+    }
+
+    .team-contribs {
+      margin-top: 0.75rem;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .team-contribs li {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .team-contribs li::before {
+      content: '→';
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* supervisor block */
+    .supervisor-block {
+      margin-top: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+    }
+
+    .sup-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .sup-list {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .sup-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sup-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .sup-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg2); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .contact-info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+    }
+
+    .contact-icon {
+      font-size: 1rem;
+      margin-top: 0.1rem;
+    }
+
+    .contact-label {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-val {
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .contact-val a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    .contact-val a:hover { text-decoration: underline; }
+
+    .contact-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+    }
+
+    .form-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group { margin-bottom: 1rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 0.65rem 0.9rem;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--accent2); }
+
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-btn {
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .form-btn:hover { background: var(--accent3); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 0.65rem 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── UTILS ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(62,255,160,0.05), transparent);
+      border: 1px solid var(--border2);
+      border-left: 3px solid var(--accent2);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-box p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .domain-grid, .subsystem-grid, .team-grid, .contact-grid, .slides-grid { grid-template-columns: 1fr; }
+      .domain-card.full { grid-column: 1; }
+      .metrics-row { grid-template-columns: repeat(2, 1fr); }
+      .docs-grid { grid-template-columns: repeat(2, 1fr); }
+      .milestone-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">SMART<span>RAIL</span> · WASTE</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#domain">Domain</a></li>
+    <li><a href="#milestones">Milestones</a></li>
+    <li><a href="#documents">Documents</a></li>
+    <li><a href="#slides">Slides</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      BSc (Hons) IT · SLIIT · April 2026
+    </div>
+
+    <h1>Cloud-Integrated <em>IoT & ML</em><br>Waste Management<br>for Railway Stations</h1>
+
+    <p class="hero-sub">
+      An autonomous mobile robot system combining machine learning, IoT sensing, and cloud integration
+      to detect, collect, classify, and dispose of waste in real-time — designed specifically for the
+      dynamic, safety-critical environment of railway stations.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#domain" class="btn-primary">Explore Research</a>
+      <a href="#documents" class="btn-outline">View Documents</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">92.5%</div>
+        <div class="stat-label">Detection Accuracy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">≥95%</div>
+        <div class="stat-label">Navigation Safety</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Subsystems</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">YOLOv8</div>
+        <div class="stat-label">Detection Model</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAIN -->
+<section id="domain">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Domain</div>
+      <h2 class="section-title">Research Background & Domain</h2>
+      <p class="section-desc">
+        Our research bridges autonomous robotics, deep learning, IoT sensing, and cloud computing
+        to address a persistent real-world problem — waste management in high-traffic public spaces.
+      </p>
+    </div>
+
+    <!-- Domain tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event,'lit')">Literature Survey</button>
+      <button class="tab-btn" onclick="switchTab(event,'gap')">Research Gap</button>
+      <button class="tab-btn" onclick="switchTab(event,'problem')">Research Problem</button>
+      <button class="tab-btn" onclick="switchTab(event,'objectives')">Objectives</button>
+      <button class="tab-btn" onclick="switchTab(event,'tech')">Technologies Used</button>
+    </div>
+
+    <!-- Literature Survey -->
+    <div id="tab-lit" class="tab-content active">
+      <div class="domain-grid">
+        <div class="domain-card">
+          <div class="dc-icon">🤖</div>
+          <div class="dc-title">Deep Learning for Waste Detection</div>
+          <div class="dc-text">
+            YOLO-based object detection models (YOLOv4, YOLOv8) demonstrate high accuracy and real-time performance
+            for identifying waste materials under diverse environmental conditions. CNN-based approaches achieve
+            high accuracy when trained on large datasets such as TACO and Kaggle garbage classification datasets.
+          </div>
+        </div>
+        <div class="domain-card">
+          <div class="dc-icon">📡</div>
+          <div class="dc-title">IoT-Enabled Waste Monitoring</div>
+          <div class="dc-text">
+            Integrating IoT-enabled sensing with deep learning significantly improves monitoring and decision-making
+            in waste management systems. Smart bins with ultrasonic sensors and cloud connectivity enable real-time
+            fill-level monitoring and notification — but are mostly limited to stationary applications.
+          </div>
+        </div>
+        <div class="domain-card">
+          <div class="dc-icon">🛸</div>
+          <div class="dc-title">Autonomous Mobile Robotics</div>
+          <div class="dc-text">
+            Sensor-based techniques using ultrasonic and infrared sensors provide cost-effective obstacle detection
+            and collision avoidance. Sensor fusion with GPS and inertial data enhances localization accuracy.
+            Existing robots (OATCR, AutoClean) lack full integration for dynamic railway environments.
+          </div>
+        </div>
+        <div class="domain-card">
+          <div class="dc-icon">🔍</div>
+          <div class="dc-title">Comparison of Waste Detection Methods</div>
+          <div class="dc-text">
+            Existing models trade off accuracy vs. computational efficiency — large models perform better but
+            are unsuitable for embedded systems; lightweight models reduce accuracy. No prior unified solution
+            addresses end-to-end autonomous waste management in railway environments.
+          </div>
+        </div>
+      </div>
+
+      <table class="lit-table" style="margin-top:2rem">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Dataset</th>
+            <th>Accuracy</th>
+            <th>Model Size</th>
+            <th>Limitation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>YOLO-Green (YOLOv4)</td>
+            <td>Real-world dataset</td>
+            <td><span class="tag tag-green">Improved</span></td>
+            <td>Large</td>
+            <td>High computational cost</td>
+          </tr>
+          <tr>
+            <td>YOLOv8</td>
+            <td>Recycling dataset</td>
+            <td><span class="tag tag-green">High</span></td>
+            <td>Medium</td>
+            <td>Focus on classification only</td>
+          </tr>
+          <tr>
+            <td>CNN (Transfer Learning)</td>
+            <td>Kaggle dataset</td>
+            <td><span class="tag tag-green">High</span></td>
+            <td>Large</td>
+            <td>No real-time detection</td>
+          </tr>
+          <tr>
+            <td>ResNet152</td>
+            <td>Custom dataset</td>
+            <td><span class="tag tag-green">98%</span></td>
+            <td>Very Large</td>
+            <td>Not suitable for embedded systems</td>
+          </tr>
+          <tr>
+            <td>Lightweight detector</td>
+            <td>Various</td>
+            <td><span class="tag tag-yellow">Moderate</span></td>
+            <td>Small</td>
+            <td>Reduced accuracy</td>
+          </tr>
+          <tr>
+            <td>TACO dataset model</td>
+            <td>TACO dataset</td>
+            <td><span class="tag tag-red">–</span></td>
+            <td>–</td>
+            <td>Limited robotic viewpoint</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Research Gap -->
+    <div id="tab-gap" class="tab-content">
+      <div class="highlight-box">
+        <p>
+          A significant research gap exists in developing a <strong style="color:var(--text)">fully integrated, railway-specific autonomous waste
+          management system</strong> that combines real-time waste detection, robotic collection, adaptive navigation,
+          safety-aware operation, bin-level monitoring, and intelligent unloading within a single platform.
+        </p>
+      </div>
+
+      <table class="gap-table">
+        <thead>
+          <tr>
+            <th>Aspect</th>
+            <th>Existing Systems</th>
+            <th>Research Gap Identified</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Navigation & Obstacle Avoidance</strong></td>
+            <td>SLAM-based mapping, predefined routes, ultrasonic/IR sensors for collision avoidance</td>
+            <td>Effective in structured indoor settings but inadequate for semi-structured, dynamic railway environments; insufficient attention to drop-off prevention</td>
+          </tr>
+          <tr>
+            <td><strong>Platform Safety (Drop-off Detection)</strong></td>
+            <td>IR and ToF sensing for cliff detection in domestic/service robots</td>
+            <td>Not adapted for railway platforms with higher safety risks and crowded conditions</td>
+          </tr>
+          <tr>
+            <td><strong>Unloading Mechanisms</strong></td>
+            <td>Semi-automatic or human-triggered disposal; docking via QR codes</td>
+            <td>Requires environmental modifications, reducing practicality in busy transport hubs</td>
+          </tr>
+          <tr>
+            <td><strong>Localization for Disposal</strong></td>
+            <td>GPS-based positioning with sensor fusion (GPS + IMU + odometry)</td>
+            <td>GPS degrades in semi-covered railway platforms; hybrid solutions underexplored</td>
+          </tr>
+          <tr>
+            <td><strong>Bin-Level Monitoring</strong></td>
+            <td>IoT-enabled static bins with ultrasonic fill sensors and cloud alerts</td>
+            <td>Mostly limited to stationary bins; rarely integrated with mobile robots</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Research Problem -->
+    <div id="tab-problem" class="tab-content">
+      <div class="highlight-box">
+        <p style="font-size:1rem; color:var(--text)">
+          How to architect autonomous mobile robots that can strongly navigate semi-structured, safety-critical
+          environments such as railway stations, steer clear of collisions, guard against falls from platforms,
+          and locate disposal points exactly with GPS-based location awareness, in order to support completely
+          automatic waste unloading?
+        </p>
+      </div>
+      <div class="domain-grid" style="margin-top:1.5rem">
+        <div class="domain-card">
+          <div class="dc-icon">⚠️</div>
+          <div class="dc-title">Safety-Critical Navigation</div>
+          <div class="dc-text">
+            Railway stations present dynamic environments with fluctuating pedestrian density, unexpected obstacles,
+            and elevated platforms providing unique safety hazards — factors not addressed in existing indoor robot navigation systems.
+          </div>
+        </div>
+        <div class="domain-card">
+          <div class="dc-icon">📍</div>
+          <div class="dc-title">GPS-Challenged Environments</div>
+          <div class="dc-text">
+            Semi-covered railway platforms degrade GPS signal quality. Discovering and driving to a definitive disposal
+            location, aligning correctly, and controlling an unloading system autonomously remains an insufficiently
+            researched area.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Objectives -->
+    <div id="tab-objectives" class="tab-content">
+      <div class="subsystem-grid">
+        <div class="subsystem-card">
+          <div class="sc-num">01</div>
+          <div class="sc-title">Autonomous Garbage Detection and Collection</div>
+          <div class="sc-text">
+            Design and implement a robust garbage detection and collection mechanism combining computer vision (YOLOv8)
+            and sensor-based triggering. A robotic arm with appropriate degrees of freedom picks and stores identified
+            waste items with high detection accuracy and reliable grasping.
+          </div>
+        </div>
+        <div class="subsystem-card">
+          <div class="sc-num">02</div>
+          <div class="sc-title">Intelligent Navigation & Unloading Control</div>
+          <div class="sc-text">
+            Develop a reliable navigation system using ultrasonic and infrared sensors for obstacle detection and
+            platform-edge prevention. Implement intelligent unloading triggered by real-time bin-level monitoring —
+            the robot navigates to disposal points via GPS only when necessary.
+          </div>
+        </div>
+        <div class="subsystem-card">
+          <div class="sc-num">03</div>
+          <div class="sc-title">Real-Time Crowd Detection & Waste Classification</div>
+          <div class="sc-text">
+            Develop ML-based crowd density estimation via head-count detection to support safe navigation decisions
+            (slowdown, reroute, pause in congested areas). Simultaneously classify collected waste into plastic,
+            paper, glass, and polythene at the disposal station.
+          </div>
+        </div>
+        <div class="subsystem-card">
+          <div class="sc-num">04</div>
+          <div class="sc-title">Automated Waste Sorting & Disposal Bin Monitoring</div>
+          <div class="sc-text">
+            Implement automated waste sorting at the disposal station using a robotic arm. Deploy IoT-based
+            bin monitoring (ultrasonic sensors) with cloud transmission, real-time visualization, and automated
+            alerts when bins approach capacity limits.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technologies Used -->
+    <div id="tab-tech" class="tab-content">
+      <div class="domain-grid">
+        <div class="domain-card">
+          <div class="dc-icon">🧠</div>
+          <div class="dc-title">Machine Learning & Computer Vision</div>
+          <div class="dc-text">YOLOv8 (waste detection & classification), OpenCV (image processing), Python (model training & inference), TensorFlow Lite (edge deployment)</div>
+          <div class="tech-pills">
+            <span class="tech-pill">YOLOv8n</span>
+            <span class="tech-pill">OpenCV</span>
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">TF Lite</span>
+          </div>
+        </div>
+        <div class="domain-card">
+          <div class="dc-icon">🔧</div>
+          <div class="dc-title">Hardware & Embedded Systems</div>
+          <div class="dc-text">ESP32 microcontroller with camera (ESP32-CAM), HC-SR04 ultrasonic sensors, IR sensors (4×), L298N motor driver, DC motors (4×), servo motors, GPS module</div>
+          <div class="tech-pills">
+            <span class="tech-pill">ESP32</span>
+            <span class="tech-pill">HC-SR04</span>
+            <span class="tech-pill">IR Sensors</span>
+            <span class="tech-pill">L298N</span>
+            <span class="tech-pill">GPS</span>
+          </div>
+        </div>
+        <div class="domain-card">
+          <div class="dc-icon">☁️</div>
+          <div class="dc-title">Cloud & IoT</div>
+          <div class="dc-text">Cloud database for real-time data logging and trend analysis, MQTT protocol for IoT communication, HTTP for device-to-cloud data transfer, mobile application for monitoring</div>
+          <div class="tech-pills">
+            <span class="tech-pill">MQTT</span>
+            <span class="tech-pill">HTTP</span>
+            <span class="tech-pill">Cloud DB</span>
+            <span class="tech-pill">Mobile App</span>
+          </div>
+        </div>
+        <div class="domain-card">
+          <div class="dc-icon">🦾</div>
+          <div class="dc-title">Robotics</div>
+          <div class="dc-text">Multi-DOF robotic arm (gripper, 1 kg capacity) for waste collection and disposal sorting. Sensor-driven reactive navigation (no SLAM), blueprint-based spatial awareness, crowd-adaptive movement</div>
+          <div class="tech-pills">
+            <span class="tech-pill">Robotic Arm</span>
+            <span class="tech-pill">Reactive Nav</span>
+            <span class="tech-pill">Actuators</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MILESTONES -->
+<section id="milestones">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Milestones</div>
+      <h2 class="section-title">Project Assessments</h2>
+      <p class="section-desc">All assessments across the 2025–2026 academic year, from topic selection through final viva.</p>
+    </div>
+
+    <div class="milestone-list">
+      <div class="milestone-item">
+        <div>
+          <div class="mi-title">Topic Selection</div>
+          <div class="mi-date">May – Jul 2025</div>
+        </div>
+        <div class="mi-desc">Topic selection, supervisor approval, group registration, and topic assessment document creation.</div>
+        <div class="mi-marks"><span class="tag tag-green">Completed</span></div>
+      </div>
+      <div class="milestone-item">
+        <div>
+          <div class="mi-title">Project Proposal</div>
+          <div class="mi-date">Aug – Sep 2025</div>
+        </div>
+        <div class="mi-desc">Project proposal document creation, proposal presentation, and project charter submission.</div>
+        <div class="mi-marks"><span class="tag tag-green">Completed</span></div>
+      </div>
+      <div class="milestone-item">
+        <div>
+          <div class="mi-title">Progress Presentation 1</div>
+          <div class="mi-date">Nov – Dec 2025</div>
+        </div>
+        <div class="mi-desc">First progress presentation covering initial system design, methodology, and early implementation results. Checklist 1 submitted.</div>
+        <div class="mi-marks"><span class="tag tag-green">Completed</span></div>
+      </div>
+      <div class="milestone-item">
+        <div>
+          <div class="mi-title">Research Paper</div>
+          <div class="mi-date">Feb – Mar 2026</div>
+        </div>
+        <div class="mi-desc">Individual research paper creation and submission covering each member's component of the system.</div>
+        <div class="mi-marks"><span class="tag tag-green">Completed</span></div>
+      </div>
+      <div class="milestone-item">
+        <div>
+          <div class="mi-title">Progress Presentation 2</div>
+          <div class="mi-date">Mar 2026</div>
+        </div>
+        <div class="mi-desc">Second progress presentation with advanced implementation, testing results, and system integration demonstration.</div>
+        <div class="mi-marks"><span class="tag tag-green">Completed</span></div>
+      </div>
+      <div class="milestone-item">
+        <div>
+          <div class="mi-title">Final Report Submission</div>
+          <div class="mi-date">Apr – May 2026</div>
+        </div>
+        <div class="mi-desc">Comprehensive final documentation submitted in partial fulfilment of BSc (Hons) IT degree requirements.</div>
+        <div class="mi-marks"><span class="tag tag-green">Completed</span></div>
+      </div>
+      <div class="milestone-item">
+        <div>
+          <div class="mi-title">Final Presentation & Viva</div>
+          <div class="mi-date">May – Jun 2026</div>
+        </div>
+        <div class="mi-desc">Final presentation of the complete integrated system and oral examination (viva voce).</div>
+        <div class="mi-marks"><span class="tag tag-yellow">Upcoming</span></div>
+      </div>
+      <div class="milestone-item">
+        <div>
+          <div class="mi-title">Project Website & Logbook</div>
+          <div class="mi-date">May – Jun 2026</div>
+        </div>
+        <div class="mi-desc">Project website (this site) and research logbook submission.</div>
+        <div class="mi-marks"><span class="tag tag-blue">In Progress</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY / RESULTS -->
+<section id="methodology">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Methodology & Results</div>
+      <h2 class="section-title">System Architecture & Performance</h2>
+      <p class="section-desc">
+        Four integrated subsystems — mobile robot, cloud, disposal area, and mobile application —
+        work in seamless synergy to achieve fully autonomous waste management.
+      </p>
+    </div>
+
+    <div class="subsystem-grid">
+      <div class="subsystem-card">
+        <div class="sc-num">SUBSYSTEM 01</div>
+        <div class="sc-title">Mobile Robot Subsystem</div>
+        <div class="sc-text">
+          The core active unit for waste collection. Equipped with ESP32-CAM and ultrasonic sensors
+          for real-time waste detection. Upon detection, the robotic arm (1 kg capacity) picks and
+          stores waste. Navigates autonomously using reactive sensor-driven logic, with platform-edge
+          detection via IR sensors and crowd-aware safe-zone protocol.
+        </div>
+        <div class="tech-pills">
+          <span class="tech-pill">ESP32-CAM</span>
+          <span class="tech-pill">Ultrasonic</span>
+          <span class="tech-pill">IR Sensors</span>
+          <span class="tech-pill">GPS</span>
+          <span class="tech-pill">Robotic Arm</span>
+        </div>
+      </div>
+      <div class="subsystem-card">
+        <div class="sc-num">SUBSYSTEM 02</div>
+        <div class="sc-title">Cloud Subsystem</div>
+        <div class="sc-text">
+          Central intelligence and connectivity layer hosting the waste classification ML model,
+          crowd detection model, and cloud database. Connects the robot, disposal area, and mobile
+          app via MQTT and HTTP. Enables long-term trend analysis, predictive maintenance, and
+          scalability across multiple stations.
+        </div>
+        <div class="tech-pills">
+          <span class="tech-pill">MQTT</span>
+          <span class="tech-pill">HTTP</span>
+          <span class="tech-pill">Cloud DB</span>
+          <span class="tech-pill">ML Models</span>
+        </div>
+      </div>
+      <div class="subsystem-card">
+        <div class="sc-num">SUBSYSTEM 03</div>
+        <div class="sc-title">Disposal Area Subsystem</div>
+        <div class="sc-text">
+          A stationary robotic arm guided by ML classification output sorts unloaded waste into four
+          dedicated bins (Plastic, Paper, Glass, Metal). Each bin has an ultrasonic fill sensor
+          reporting levels to the cloud in real time, enabling timely maintenance alerts and
+          preventing overflow.
+        </div>
+        <div class="tech-pills">
+          <span class="tech-pill">Stationary Arm</span>
+          <span class="tech-pill">4-Class Sort</span>
+          <span class="tech-pill">IoT Sensors</span>
+          <span class="tech-pill">MQTT</span>
+        </div>
+      </div>
+      <div class="subsystem-card">
+        <div class="sc-num">SUBSYSTEM 04</div>
+        <div class="sc-title">Mobile Application</div>
+        <div class="sc-text">
+          Human-machine interface providing real-time visibility of disposal bin fill levels.
+          Automatic push notifications are sent when bins near capacity, prompting timely action.
+          Closes the loop between fully autonomous operation and human monitoring oversight.
+        </div>
+        <div class="tech-pills">
+          <span class="tech-pill">Real-Time UI</span>
+          <span class="tech-pill">Push Alerts</span>
+          <span class="tech-pill">Bin Status</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance metrics -->
+    <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; margin-top:1rem;">YOLOv8n Classification Performance</h3>
+    <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:0.5rem;">Tested on 240 samples · Custom waste dataset (plastic, paper, glass, polythene, non-waste)</p>
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-val">92.5%</div>
+        <div class="metric-name">Accuracy</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">93.0%</div>
+        <div class="metric-name">Precision</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">94.3%</div>
+        <div class="metric-name">Recall</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">93.6%</div>
+        <div class="metric-name">F1-Score</div>
+      </div>
+    </div>
+
+    <div class="metrics-row" style="margin-top:1rem;">
+      <div class="metric-card">
+        <div class="metric-val">&gt;0.90</div>
+        <div class="metric-name">mAP50</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">≥95%</div>
+        <div class="metric-name">Obstacle Detection</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">≥90%</div>
+        <div class="metric-name">Grip Success Rate</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">±5%</div>
+        <div class="metric-name">Bin Level Accuracy</div>
+      </div>
+    </div>
+
+    <!-- System Architecture Image -->
+    <hr class="divider" style="margin-top:3rem"/>
+    <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;">System Architecture Diagram</h3>
+    <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1.25rem;">
+      Overview of the four interconnected subsystems — Mobile Robot, Cloud, Disposal Area, and Mobile Application.
+    </p>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;padding:1.5rem;">
+      <img
+        src="images/Screenshot 2026-04-26 232609.png"
+        alt="System Architecture Diagram"
+        style="width:100%;border-radius:6px;display:block;"
+        onerror="this.parentElement.innerHTML='<div style=\'padding:2rem;text-align:center;color:var(--text-muted);font-size:0.85rem;\'>⚠️ Place your architecture image at <code style=\'color:var(--accent)\'>images/Screenshot 2026-04-26 232609.png</code></div>'"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTS -->
+<section id="documents">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Documents</div>
+      <h2 class="section-title">Project Documents</h2>
+      <p class="section-desc">All project documentation produced throughout the research lifecycle.</p>
+    </div>
+
+    <div class="docs-grid">
+      <a href="documents/Taf_document.pdf" target="_blank" class="doc-item">
+        <div class="doc-icon">📋</div>
+        <div>
+          <div class="doc-name">TAF Document</div>
+          <div class="doc-sub">Topic Assessment · 2025 · 1,678 KB</div>
+        </div>
+      </a>
+      <a href="documents/IT22566348.pdf" target="_blank" class="doc-item">
+        <div class="doc-icon">📗</div>
+        <div>
+          <div class="doc-name">Proposal Report — Perera W.B.N.</div>
+          <div class="doc-sub">IT22566348 · Apr 2026 · 2,142 KB</div>
+        </div>
+      </a>
+      <a href="documents/IT22582324.pdf" target="_blank" class="doc-item">
+        <div class="doc-icon">📗</div>
+        <div>
+          <div class="doc-name">Proposal Report — Sendanayaka H.K.</div>
+          <div class="doc-sub">IT22582324 · Apr 2026 · 1,492 KB</div>
+        </div>
+      </a>
+      <a href="documents/IT22566102.pdf" target="_blank" class="doc-item">
+        <div class="doc-icon">📗</div>
+        <div>
+          <div class="doc-name">Proposal Report — Nuwanthi B.D.T.</div>
+          <div class="doc-sub">IT22566102 · Apr 2026 · 717 KB</div>
+        </div>
+      </a>
+      <a href="documents/IT22292940.pdf" target="_blank" class="doc-item">
+        <div class="doc-icon">📗</div>
+        <div>
+          <div class="doc-name">Proposal Report — Jayasekara R.G.S.</div>
+          <div class="doc-sub">IT22292940 · Apr 2026 · 997 KB</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDES -->
+<section id="slides">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Presentations</div>
+      <h2 class="section-title">Presentation Slides</h2>
+      <p class="section-desc">Slides from all past presentations, with provisions for upcoming ones.</p>
+    </div>
+
+    <div class="slides-grid">
+      <a href="slides/Proposal_Presentation.pptx" target="_blank" class="slide-card" style="text-decoration:none;color:inherit;">
+        <div class="slide-thumb">
+          <div class="slide-thumb-inner">
+            <div class="slide-lines">
+              <div class="slide-line"></div>
+              <div class="slide-line" style="width:60%"></div>
+              <div class="slide-line" style="width:45%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-info">
+          <div class="slide-title">Proposal Presentation</div>
+          <div class="slide-status"><span class="tag tag-green">Download .pptx</span> · Sep 2025 · 9,317 KB</div>
+        </div>
+      </a>
+
+      <a href="slides/Progress_Presentation.pptx" target="_blank" class="slide-card" style="text-decoration:none;color:inherit;">
+        <div class="slide-thumb">
+          <div class="slide-thumb-inner">
+            <div class="slide-lines">
+              <div class="slide-line"></div>
+              <div class="slide-line" style="width:70%"></div>
+              <div class="slide-line" style="width:50%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-info">
+          <div class="slide-title">Progress Presentation 1</div>
+          <div class="slide-status"><span class="tag tag-green">Download .pptx</span> · Dec 2025 · 13,968 KB</div>
+        </div>
+      </a>
+
+      <a href="slides/Progress_Presentation_2.pptx" target="_blank" class="slide-card" style="text-decoration:none;color:inherit;">
+        <div class="slide-thumb">
+          <div class="slide-thumb-inner">
+            <div class="slide-lines">
+              <div class="slide-line"></div>
+              <div class="slide-line" style="width:65%"></div>
+              <div class="slide-line" style="width:40%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-info">
+          <div class="slide-title">Progress Presentation 2</div>
+          <div class="slide-status"><span class="tag tag-green">Download .pptx</span> · Mar 2026 · 265,361 KB</div>
+        </div>
+      </a>
+
+      <div class="slide-card" style="opacity:0.5;cursor:not-allowed;">
+        <div class="slide-thumb">
+          <div class="slide-thumb-inner">
+            <div class="slide-lines">
+              <div class="slide-line" style="background:var(--border2)"></div>
+              <div class="slide-line" style="width:60%;background:var(--border2)"></div>
+              <div class="slide-line" style="width:40%;background:var(--border2)"></div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-info">
+          <div class="slide-title">Final Presentation</div>
+          <div class="slide-status"><span class="tag tag-yellow">Upcoming</span> · May–Jun 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">About Us</div>
+      <h2 class="section-title">The Team</h2>
+      <p class="section-desc">
+        Four IT students from SLIIT specializing in Information Technology, Department of Information Technology.
+      </p>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">WP</div>
+        <div>
+          <div class="team-name">Perera W.B.N.</div>
+          <div class="team-id">IT22566348</div>
+          <div class="team-role">Autonomous Garbage Detection & Collection</div>
+          <ul class="team-contribs">
+            <li>YOLOv8-based waste detection pipeline</li>
+            <li>Custom dataset preparation & annotation</li>
+            <li>Camera module & robotic arm integration</li>
+            <li>Performance evaluation (confusion matrix)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">HS</div>
+        <div>
+          <div class="team-name">Sendanayaka H.K.</div>
+          <div class="team-id">IT22582324</div>
+          <div class="team-role">Intelligent Navigation & Unloading Control</div>
+          <ul class="team-contribs">
+            <li>Sensor-based autonomous navigation logic</li>
+            <li>Obstacle & platform-edge detection (IR)</li>
+            <li>Bin-level monitoring & unloading control</li>
+            <li>GPS-based disposal area navigation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">DN</div>
+        <div>
+          <div class="team-name">Nuwanthi B.D.T.</div>
+          <div class="team-id">IT22566102</div>
+          <div class="team-role">Real-Time Crowd Detection & Waste Classification</div>
+          <ul class="team-contribs">
+            <li>Crowd detection module (head-count)</li>
+            <li>Adaptive robot behavior based on density</li>
+            <li>Multi-class waste classification system</li>
+            <li>Real-world condition testing & validation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">RJ</div>
+        <div>
+          <div class="team-name">Jayasekara R.G.S.</div>
+          <div class="team-id">IT22292940</div>
+          <div class="team-role">Automated Waste Sorting & Disposal Bin Monitoring</div>
+          <ul class="team-contribs">
+            <li>Robotic arm waste sorting mechanism</li>
+            <li>IoT-based bin monitoring system</li>
+            <li>Cloud dashboard & notification system</li>
+            <li>Sensor-cloud integration & testing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="supervisor-block">
+      <div class="sup-label">Supervisors · Sri Lanka Institute of Information Technology</div>
+      <div class="sup-list">
+        <div class="sup-item">
+          <div class="sup-name">Ms. Shashika Lokuliyana</div>
+          <div class="sup-title">Supervisor · SLIIT Faculty of Computing</div>
+        </div>
+        <div class="sup-item">
+          <div class="sup-name">Ms. Suranjini Silva</div>
+          <div class="sup-title">Co-Supervisor · SLIIT Faculty of Computing</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Contact Us</div>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-desc">Reach out to the team regarding the research, collaboration, or inquiries.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info-block">
+        <div class="contact-row">
+          <div class="contact-icon">🏛️</div>
+          <div>
+            <div class="contact-label">Institution</div>
+            <div class="contact-val">Sri Lanka Institute of Information Technology (SLIIT)<br>Department of Information Technology</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Team Emails</div>
+            <div class="contact-val">
+              <a href="mailto:it22566348@my.sliit.lk">it22566348@my.sliit.lk</a><br>
+              <a href="mailto:it22582324@my.sliit.lk">it22582324@my.sliit.lk</a><br>
+              <a href="mailto:it22566102@my.sliit.lk">it22566102@my.sliit.lk</a><br>
+              <a href="mailto:it22292940@my.sliit.lk">it22292940@my.sliit.lk</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <div class="contact-label">Department</div>
+            <div class="contact-val"><a href="http://cdap.sliit.lk" target="_blank">cdap.sliit.lk</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📅</div>
+          <div>
+            <div class="contact-label">Degree Programme</div>
+            <div class="contact-val">BSc (Hons) in Information Technology<br>Specializing in Information Technology · Batch 2022</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-title">Send a Message</div>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" placeholder="Research inquiry, collaboration, etc." />
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Your message here..."></textarea>
+        </div>
+        <button class="form-btn" onclick="handleFormSubmit(this)">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SMARTRAIL · WASTE</div>
+  <div class="footer-text">
+    Cloud-Integrated IoT & ML Based Waste Management System for Railway Stations<br>
+    BSc (Hons) Information Technology · SLIIT · April 2026<br><br>
+    Perera W.B.N. &nbsp;·&nbsp; Sendanayaka H.K. &nbsp;·&nbsp; Nuwanthi B.D.T. &nbsp;·&nbsp; Jayasekara R.G.S.
+  </div>
+</footer>
+
+<script>
+  function switchTab(event, id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+
+  function handleFormSubmit(btn) {
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = 'var(--accent2)';
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = '';
+    }, 3000);
+  }
+
+  // Scroll-based nav highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    links.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
