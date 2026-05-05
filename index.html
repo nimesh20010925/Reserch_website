@@ -24,11 +24,11 @@
       --yellow: #ffd166;
       --blue: #5ec8ff;
     }
-
+ 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     html { scroll-behavior: smooth; }
-
+ 
     body {
       background: var(--bg);
       color: var(--text);
@@ -37,12 +37,12 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-
+ 
     /* ── SCROLLBAR ── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 3px; }
-
+ 
     /* ── NAV ── */
     nav {
       position: fixed;
@@ -57,7 +57,7 @@
       justify-content: space-between;
       height: 60px;
     }
-
+ 
     .nav-logo {
       font-family: 'Space Mono', monospace;
       font-size: 0.9rem;
@@ -65,15 +65,15 @@
       letter-spacing: 0.05em;
       text-decoration: none;
     }
-
+ 
     .nav-logo span { color: var(--text-dim); }
-
+ 
     .nav-links {
       display: flex;
       gap: 0;
       list-style: none;
     }
-
+ 
     .nav-links a {
       display: block;
       padding: 0.4rem 0.9rem;
@@ -85,9 +85,9 @@
       transition: color 0.2s;
       border-radius: 4px;
     }
-
+ 
     .nav-links a:hover { color: var(--accent); }
-
+ 
     /* ── HERO ── */
     #home {
       min-height: 100vh;
@@ -98,7 +98,7 @@
       position: relative;
       overflow: hidden;
     }
-
+ 
     .hero-grid-bg {
       position: absolute;
       inset: 0;
@@ -109,7 +109,7 @@
       opacity: 0.4;
       mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 100%);
     }
-
+ 
     .hero-glow {
       position: absolute;
       width: 700px; height: 700px;
@@ -119,14 +119,14 @@
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
-
+ 
     .hero-inner {
       max-width: 900px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
-
+ 
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -142,19 +142,19 @@
       margin-bottom: 2rem;
       animation: fadeUp 0.6s ease both;
     }
-
+ 
     .badge-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--accent);
       animation: pulse 2s ease infinite;
     }
-
+ 
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(0.8); }
     }
-
+ 
     h1 {
       font-size: clamp(2.2rem, 5vw, 4rem);
       font-weight: 700;
@@ -163,13 +163,13 @@
       margin-bottom: 1.5rem;
       animation: fadeUp 0.6s 0.1s ease both;
     }
-
+ 
     h1 em {
       font-style: normal;
       color: var(--accent);
       position: relative;
     }
-
+ 
     .hero-sub {
       font-size: 1.05rem;
       color: var(--text-dim);
@@ -179,14 +179,14 @@
       font-weight: 300;
       animation: fadeUp 0.6s 0.2s ease both;
     }
-
+ 
     .hero-ctas {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
       animation: fadeUp 0.6s 0.3s ease both;
     }
-
+ 
     .btn-primary {
       background: var(--accent);
       color: var(--bg);
@@ -198,9 +198,9 @@
       letter-spacing: 0.02em;
       transition: background 0.2s, transform 0.15s;
     }
-
+ 
     .btn-primary:hover { background: var(--accent3); transform: translateY(-1px); }
-
+ 
     .btn-outline {
       background: transparent;
       color: var(--text-dim);
@@ -212,9 +212,9 @@
       text-decoration: none;
       transition: border-color 0.2s, color 0.2s;
     }
-
+ 
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
+ 
     .hero-stats {
       display: flex;
       gap: 3rem;
@@ -223,7 +223,7 @@
       border-top: 1px solid var(--border);
       animation: fadeUp 0.6s 0.4s ease both;
     }
-
+ 
     .stat-item {}
     .stat-num {
       font-family: 'Space Mono', monospace;
@@ -238,22 +238,22 @@
       text-transform: uppercase;
       margin-top: 0.1rem;
     }
-
+ 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
+ 
     /* ── SECTIONS ── */
     section {
       padding: 6rem 2rem;
     }
-
+ 
     .container {
       max-width: 1100px;
       margin: 0 auto;
     }
-
+ 
     .section-tag {
       font-family: 'Space Mono', monospace;
       font-size: 0.72rem;
@@ -262,7 +262,7 @@
       text-transform: uppercase;
       margin-bottom: 0.75rem;
     }
-
+ 
     .section-title {
       font-size: clamp(1.6rem, 3vw, 2.4rem);
       font-weight: 700;
@@ -270,7 +270,7 @@
       line-height: 1.2;
       margin-bottom: 1rem;
     }
-
+ 
     .section-desc {
       color: var(--text-dim);
       font-size: 1rem;
@@ -278,20 +278,20 @@
       line-height: 1.7;
       font-weight: 300;
     }
-
+ 
     .section-header {
       margin-bottom: 3rem;
     }
-
+ 
     /* ── DOMAIN ── */
     #domain { background: var(--bg2); }
-
+ 
     .domain-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
     }
-
+ 
     .domain-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -299,11 +299,11 @@
       padding: 1.75rem;
       transition: border-color 0.25s, transform 0.2s;
     }
-
+ 
     .domain-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
-
+ 
     .domain-card.full { grid-column: 1 / -1; }
-
+ 
     .dc-icon {
       width: 38px; height: 38px;
       border-radius: 8px;
@@ -315,20 +315,20 @@
       margin-bottom: 1rem;
       border: 1px solid var(--border2);
     }
-
+ 
     .dc-title {
       font-weight: 700;
       font-size: 1rem;
       margin-bottom: 0.5rem;
       color: var(--text);
     }
-
+ 
     .dc-text {
       font-size: 0.88rem;
       color: var(--text-dim);
       line-height: 1.65;
     }
-
+ 
     /* literature survey table */
     .lit-table {
       width: 100%;
@@ -336,7 +336,7 @@
       font-size: 0.82rem;
       margin-top: 1.5rem;
     }
-
+ 
     .lit-table th {
       text-align: left;
       padding: 0.6rem 1rem;
@@ -347,17 +347,17 @@
       font-size: 0.75rem;
       border-bottom: 1px solid var(--border);
     }
-
+ 
     .lit-table td {
       padding: 0.6rem 1rem;
       border-bottom: 1px solid var(--border);
       color: var(--text-dim);
       vertical-align: top;
     }
-
+ 
     .lit-table tr:last-child td { border-bottom: none; }
     .lit-table tr:hover td { background: var(--surface); }
-
+ 
     .tag {
       display: inline-block;
       padding: 0.15rem 0.55rem;
@@ -366,12 +366,12 @@
       font-weight: 600;
       letter-spacing: 0.04em;
     }
-
+ 
     .tag-green { background: rgba(62,255,160,0.12); color: var(--accent); }
     .tag-yellow { background: rgba(255,209,102,0.12); color: var(--yellow); }
     .tag-red { background: rgba(255,78,78,0.12); color: var(--red); }
     .tag-blue { background: rgba(94,200,255,0.12); color: var(--blue); }
-
+ 
     /* gap table */
     .gap-table {
       width: 100%;
@@ -379,7 +379,7 @@
       font-size: 0.84rem;
       margin-top: 1.5rem;
     }
-
+ 
     .gap-table th {
       text-align: left;
       padding: 0.75rem 1.2rem;
@@ -390,19 +390,19 @@
       letter-spacing: 0.06em;
       border-bottom: 2px solid var(--accent2);
     }
-
+ 
     .gap-table td {
       padding: 0.85rem 1.2rem;
       border-bottom: 1px solid var(--border);
       color: var(--text-dim);
       vertical-align: top;
     }
-
+ 
     .gap-table tr:hover td { background: var(--surface); }
-
+ 
     /* ── MILESTONES ── */
     #milestones { background: var(--bg); }
-
+ 
     .milestone-list {
       display: flex;
       flex-direction: column;
@@ -411,7 +411,7 @@
       border-radius: 12px;
       overflow: hidden;
     }
-
+ 
     .milestone-item {
       background: var(--surface);
       display: grid;
@@ -422,21 +422,21 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.2s;
     }
-
+ 
     .milestone-item:last-child { border-bottom: none; }
     .milestone-item:hover { background: var(--surface2); }
-
+ 
     .mi-title {
       font-weight: 600;
       font-size: 0.95rem;
     }
-
+ 
     .mi-date {
       font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
       color: var(--text-muted);
     }
-
+ 
     .mi-marks {
       font-family: 'Space Mono', monospace;
       font-size: 0.8rem;
@@ -444,22 +444,22 @@
       text-align: right;
       white-space: nowrap;
     }
-
+ 
     .mi-desc {
       font-size: 0.84rem;
       color: var(--text-dim);
     }
-
+ 
     /* ── METHODOLOGY ── */
     #methodology { background: var(--bg2); }
-
+ 
     .subsystem-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
       margin-bottom: 3rem;
     }
-
+ 
     .subsystem-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -468,7 +468,7 @@
       position: relative;
       overflow: hidden;
     }
-
+ 
     .subsystem-card::before {
       content: '';
       position: absolute;
@@ -476,34 +476,34 @@
       width: 3px; height: 100%;
       background: var(--accent2);
     }
-
+ 
     .sc-num {
       font-family: 'Space Mono', monospace;
       font-size: 0.7rem;
       color: var(--text-muted);
       margin-bottom: 0.4rem;
     }
-
+ 
     .sc-title {
       font-weight: 700;
       font-size: 1rem;
       margin-bottom: 0.75rem;
       color: var(--text);
     }
-
+ 
     .sc-text {
       font-size: 0.85rem;
       color: var(--text-dim);
       line-height: 1.65;
     }
-
+ 
     .tech-pills {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
       margin-top: 1rem;
     }
-
+ 
     .tech-pill {
       padding: 0.25rem 0.65rem;
       border-radius: 100px;
@@ -513,7 +513,7 @@
       color: var(--text-dim);
       font-family: 'Space Mono', monospace;
     }
-
+ 
     /* perf metrics */
     .metrics-row {
       display: grid;
@@ -521,7 +521,7 @@
       gap: 1rem;
       margin-top: 2rem;
     }
-
+ 
     .metric-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -529,14 +529,14 @@
       padding: 1.5rem;
       text-align: center;
     }
-
+ 
     .metric-val {
       font-family: 'Space Mono', monospace;
       font-size: 1.8rem;
       color: var(--accent);
       font-weight: 700;
     }
-
+ 
     .metric-name {
       font-size: 0.78rem;
       color: var(--text-muted);
@@ -544,16 +544,16 @@
       letter-spacing: 0.07em;
       margin-top: 0.3rem;
     }
-
+ 
     /* ── DOCUMENTS ── */
     #documents { background: var(--bg); }
-
+ 
     .docs-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
     }
-
+ 
     .doc-item {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -566,9 +566,9 @@
       color: var(--text);
       transition: border-color 0.2s, background 0.2s;
     }
-
+ 
     .doc-item:hover { border-color: var(--accent2); background: var(--surface2); }
-
+ 
     .doc-icon {
       width: 36px; height: 36px;
       border-radius: 6px;
@@ -580,28 +580,28 @@
       flex-shrink: 0;
       border: 1px solid var(--border2);
     }
-
+ 
     .doc-name {
       font-size: 0.86rem;
       font-weight: 600;
       line-height: 1.3;
     }
-
+ 
     .doc-sub {
       font-size: 0.74rem;
       color: var(--text-muted);
       margin-top: 0.1rem;
     }
-
+ 
     /* ── SLIDES ── */
     #slides { background: var(--bg2); }
-
+ 
     .slides-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
-
+ 
     .slide-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -611,9 +611,9 @@
       color: var(--text);
       transition: border-color 0.2s;
     }
-
+ 
     .slide-card:hover { border-color: var(--accent2); }
-
+ 
     .slide-thumb {
       height: 120px;
       background: var(--bg3);
@@ -623,7 +623,7 @@
       position: relative;
       overflow: hidden;
     }
-
+ 
     .slide-thumb-inner {
       width: 80%; height: 70%;
       border: 1px solid var(--border2);
@@ -633,115 +633,122 @@
       align-items: center;
       justify-content: center;
     }
-
+ 
     .slide-lines {
       width: 60%;
       display: flex;
       flex-direction: column;
       gap: 5px;
     }
-
+ 
     .slide-line {
       height: 4px;
       border-radius: 2px;
       background: var(--border2);
     }
-
+ 
     .slide-line:first-child {
       width: 80%;
       background: var(--accent2);
       opacity: 0.5;
     }
-
+ 
     .slide-info { padding: 1rem 1.25rem; }
-
+ 
     .slide-title {
       font-weight: 600;
       font-size: 0.9rem;
     }
-
+ 
     .slide-status {
       font-size: 0.74rem;
       color: var(--text-muted);
       margin-top: 0.3rem;
     }
-
+ 
     /* ── ABOUT ── */
     #about { background: var(--bg); }
-
+ 
     .team-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
     }
-
+ 
     .team-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 1.75rem;
+      padding: 1.75rem 1.5rem;
       display: flex;
-      gap: 1.25rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
       transition: border-color 0.25s;
     }
-
+ 
     .team-card:hover { border-color: var(--accent2); }
-
+ 
     .team-avatar {
-      width: 54px; height: 54px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background: var(--bg3);
-      border: 2px solid var(--border2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 1rem;
-      color: var(--accent);
-      font-weight: 700;
+      border: 3px solid var(--accent2);
+      overflow: hidden;
       flex-shrink: 0;
     }
-
+ 
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+ 
     .team-name {
       font-weight: 700;
       font-size: 0.95rem;
     }
-
+ 
     .team-id {
       font-family: 'Space Mono', monospace;
       font-size: 0.72rem;
       color: var(--text-muted);
       margin-top: 0.15rem;
     }
-
+ 
     .team-role {
       font-size: 0.82rem;
       color: var(--accent2);
       font-weight: 500;
       margin-top: 0.35rem;
     }
-
+ 
     .team-contribs {
       margin-top: 0.75rem;
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
+      text-align: left;
     }
-
+ 
     .team-contribs li {
       font-size: 0.8rem;
       color: var(--text-dim);
       display: flex;
       gap: 0.5rem;
     }
-
+ 
     .team-contribs li::before {
       content: '→';
       color: var(--text-muted);
       flex-shrink: 0;
     }
-
+ 
     /* supervisor block */
     .supervisor-block {
       margin-top: 2.5rem;
@@ -750,51 +757,71 @@
       border-radius: 10px;
       padding: 1.75rem;
     }
-
+ 
     .sup-label {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--text-muted);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
-
+ 
     .sup-list {
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
     }
-
+ 
     .sup-item {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
     }
-
+ 
+    .sup-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid var(--accent2);
+      background: var(--bg3);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+ 
+    .sup-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+ 
     .sup-name {
       font-weight: 600;
       font-size: 0.95rem;
     }
-
+ 
     .sup-title {
       font-size: 0.8rem;
       color: var(--text-muted);
       margin-top: 0.15rem;
     }
-
+ 
     /* ── CONTACT ── */
     #contact { background: var(--bg2); }
-
+ 
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
     }
-
+ 
     .contact-info-block {
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
     }
-
+ 
     .contact-row {
       display: flex;
       align-items: flex-start;
@@ -804,12 +831,12 @@
       border-radius: 8px;
       padding: 1.1rem 1.25rem;
     }
-
+ 
     .contact-icon {
       font-size: 1rem;
       margin-top: 0.1rem;
     }
-
+ 
     .contact-label {
       font-size: 0.74rem;
       color: var(--text-muted);
@@ -817,34 +844,34 @@
       letter-spacing: 0.07em;
       margin-bottom: 0.15rem;
     }
-
+ 
     .contact-val {
       font-size: 0.88rem;
       color: var(--text);
     }
-
+ 
     .contact-val a {
       color: var(--accent2);
       text-decoration: none;
     }
-
+ 
     .contact-val a:hover { text-decoration: underline; }
-
+ 
     .contact-form {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.75rem;
     }
-
+ 
     .form-title {
       font-weight: 700;
       font-size: 1rem;
       margin-bottom: 1.25rem;
     }
-
+ 
     .form-group { margin-bottom: 1rem; }
-
+ 
     .form-group label {
       display: block;
       font-size: 0.78rem;
@@ -853,7 +880,7 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
-
+ 
     .form-group input,
     .form-group textarea {
       width: 100%;
@@ -867,12 +894,12 @@
       transition: border-color 0.2s;
       outline: none;
     }
-
+ 
     .form-group input:focus,
     .form-group textarea:focus { border-color: var(--accent2); }
-
+ 
     .form-group textarea { resize: vertical; min-height: 100px; }
-
+ 
     .form-btn {
       width: 100%;
       background: var(--accent);
@@ -886,9 +913,9 @@
       transition: background 0.2s;
       font-family: 'DM Sans', sans-serif;
     }
-
+ 
     .form-btn:hover { background: var(--accent3); }
-
+ 
     /* ── FOOTER ── */
     footer {
       background: var(--bg);
@@ -896,19 +923,19 @@
       padding: 2rem;
       text-align: center;
     }
-
+ 
     .footer-text {
       font-size: 0.78rem;
       color: var(--text-muted);
     }
-
+ 
     .footer-logo {
       font-family: 'Space Mono', monospace;
       font-size: 0.85rem;
       color: var(--accent);
       margin-bottom: 0.5rem;
     }
-
+ 
     /* ── TABS ── */
     .tabs {
       display: flex;
@@ -916,7 +943,7 @@
       margin-bottom: 2rem;
       border-bottom: 1px solid var(--border);
     }
-
+ 
     .tab-btn {
       background: none;
       border: none;
@@ -929,22 +956,22 @@
       transition: color 0.2s, border-color 0.2s;
       margin-bottom: -1px;
     }
-
+ 
     .tab-btn.active {
       color: var(--accent);
       border-bottom-color: var(--accent);
     }
-
+ 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-
+ 
     /* ── UTILS ── */
     .divider {
       border: none;
       border-top: 1px solid var(--border);
       margin: 3rem 0;
     }
-
+ 
     .highlight-box {
       background: linear-gradient(135deg, rgba(62,255,160,0.05), transparent);
       border: 1px solid var(--border2);
@@ -953,13 +980,13 @@
       padding: 1.25rem 1.5rem;
       margin: 1.5rem 0;
     }
-
+ 
     .highlight-box p {
       font-size: 0.9rem;
       color: var(--text-dim);
       line-height: 1.7;
     }
-
+ 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .domain-grid, .subsystem-grid, .team-grid, .contact-grid, .slides-grid { grid-template-columns: 1fr; }
@@ -974,7 +1001,7 @@
   </style>
 </head>
 <body>
-
+ 
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#home">SMART<span>RAIL</span> · WASTE</a>
@@ -988,7 +1015,7 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
-
+ 
 <!-- HOME -->
 <section id="home">
   <div class="hero-grid-bg"></div>
@@ -998,20 +1025,20 @@
       <span class="badge-dot"></span>
       BSc (Hons) IT · SLIIT · April 2026
     </div>
-
+ 
     <h1>Cloud-Integrated <em>IoT & ML</em><br>Waste Management<br>for Railway Stations</h1>
-
+ 
     <p class="hero-sub">
       An autonomous mobile robot system combining machine learning, IoT sensing, and cloud integration
       to detect, collect, classify, and dispose of waste in real-time — designed specifically for the
       dynamic, safety-critical environment of railway stations.
     </p>
-
+ 
     <div class="hero-ctas">
       <a href="#domain" class="btn-primary">Explore Research</a>
       <a href="#documents" class="btn-outline">View Documents</a>
     </div>
-
+ 
     <div class="hero-stats">
       <div class="stat-item">
         <div class="stat-num">92.5%</div>
@@ -1032,7 +1059,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- DOMAIN -->
 <section id="domain">
   <div class="container">
@@ -1044,7 +1071,7 @@
         to address a persistent real-world problem — waste management in high-traffic public spaces.
       </p>
     </div>
-
+ 
     <!-- Domain tabs -->
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab(event,'lit')">Literature Survey</button>
@@ -1053,7 +1080,7 @@
       <button class="tab-btn" onclick="switchTab(event,'objectives')">Objectives</button>
       <button class="tab-btn" onclick="switchTab(event,'tech')">Technologies Used</button>
     </div>
-
+ 
     <!-- Literature Survey -->
     <div id="tab-lit" class="tab-content active">
       <div class="domain-grid">
@@ -1094,7 +1121,7 @@
           </div>
         </div>
       </div>
-
+ 
       <table class="lit-table" style="margin-top:2rem">
         <thead>
           <tr>
@@ -1151,7 +1178,7 @@
         </tbody>
       </table>
     </div>
-
+ 
     <!-- Research Gap -->
     <div id="tab-gap" class="tab-content">
       <div class="highlight-box">
@@ -1161,7 +1188,7 @@
           safety-aware operation, bin-level monitoring, and intelligent unloading within a single platform.
         </p>
       </div>
-
+ 
       <table class="gap-table">
         <thead>
           <tr>
@@ -1199,7 +1226,7 @@
         </tbody>
       </table>
     </div>
-
+ 
     <!-- Research Problem -->
     <div id="tab-problem" class="tab-content">
       <div class="highlight-box">
@@ -1230,7 +1257,7 @@
         </div>
       </div>
     </div>
-
+ 
     <!-- Objectives -->
     <div id="tab-objectives" class="tab-content">
       <div class="subsystem-grid">
@@ -1272,7 +1299,7 @@
         </div>
       </div>
     </div>
-
+ 
     <!-- Technologies Used -->
     <div id="tab-tech" class="tab-content">
       <div class="domain-grid">
@@ -1322,10 +1349,10 @@
         </div>
       </div>
     </div>
-
+ 
   </div>
 </section>
-
+ 
 <!-- MILESTONES -->
 <section id="milestones">
   <div class="container">
@@ -1334,7 +1361,7 @@
       <h2 class="section-title">Project Assessments</h2>
       <p class="section-desc">All assessments across the 2025–2026 academic year, from topic selection through final viva.</p>
     </div>
-
+ 
     <div class="milestone-list">
       <div class="milestone-item">
         <div>
@@ -1403,7 +1430,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- METHODOLOGY / RESULTS -->
 <section id="methodology">
   <div class="container">
@@ -1415,7 +1442,7 @@
         work in seamless synergy to achieve fully autonomous waste management.
       </p>
     </div>
-
+ 
     <div class="subsystem-grid">
       <div class="subsystem-card">
         <div class="sc-num">SUBSYSTEM 01</div>
@@ -1481,7 +1508,7 @@
         </div>
       </div>
     </div>
-
+ 
     <!-- Performance metrics -->
     <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; margin-top:1rem;">YOLOv8n Classification Performance</h3>
     <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:0.5rem;">Tested on 240 samples · Custom waste dataset (plastic, paper, glass, polythene, non-waste)</p>
@@ -1503,7 +1530,7 @@
         <div class="metric-name">F1-Score</div>
       </div>
     </div>
-
+ 
     <div class="metrics-row" style="margin-top:1rem;">
       <div class="metric-card">
         <div class="metric-val">&gt;0.90</div>
@@ -1522,7 +1549,7 @@
         <div class="metric-name">Bin Level Accuracy</div>
       </div>
     </div>
-
+ 
     <!-- System Architecture Image -->
     <hr class="divider" style="margin-top:3rem"/>
     <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;">System Architecture Diagram</h3>
@@ -1539,7 +1566,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- DOCUMENTS -->
 <section id="documents">
   <div class="container">
@@ -1548,7 +1575,7 @@
       <h2 class="section-title">Project Documents</h2>
       <p class="section-desc">All project documentation produced throughout the research lifecycle.</p>
     </div>
-
+ 
     <div class="docs-grid">
       <a href="documents/Taf_document.pdf" target="_blank" class="doc-item">
         <div class="doc-icon">📋</div>
@@ -1560,35 +1587,35 @@
       <a href="documents/IT22566348.pdf" target="_blank" class="doc-item">
         <div class="doc-icon">📗</div>
         <div>
-          <div class="doc-name">Proposal Report — Perera W.B.N.</div>
+          <div class="doc-name">Final Report — Perera W.B.N.</div>
           <div class="doc-sub">IT22566348 · Apr 2026 · 2,142 KB</div>
         </div>
       </a>
       <a href="documents/IT22582324.pdf" target="_blank" class="doc-item">
         <div class="doc-icon">📗</div>
         <div>
-          <div class="doc-name">Proposal Report — Sendanayaka H.K.</div>
+          <div class="doc-name">Final Report — Sendanayaka H.K.</div>
           <div class="doc-sub">IT22582324 · Apr 2026 · 1,492 KB</div>
         </div>
       </a>
       <a href="documents/IT22566102.pdf" target="_blank" class="doc-item">
         <div class="doc-icon">📗</div>
         <div>
-          <div class="doc-name">Proposal Report — Nuwanthi B.D.T.</div>
+          <div class="doc-name">Final Report — Nuwanthi B.D.T.</div>
           <div class="doc-sub">IT22566102 · Apr 2026 · 717 KB</div>
         </div>
       </a>
       <a href="documents/IT22292940.pdf" target="_blank" class="doc-item">
         <div class="doc-icon">📗</div>
         <div>
-          <div class="doc-name">Proposal Report — Jayasekara R.G.S.</div>
+          <div class="doc-name">Final Report — Jayasekara R.G.S.</div>
           <div class="doc-sub">IT22292940 · Apr 2026 · 997 KB</div>
         </div>
       </a>
     </div>
   </div>
 </section>
-
+ 
 <!-- SLIDES -->
 <section id="slides">
   <div class="container">
@@ -1597,7 +1624,7 @@
       <h2 class="section-title">Presentation Slides</h2>
       <p class="section-desc">Slides from all past presentations, with provisions for upcoming ones.</p>
     </div>
-
+ 
     <div class="slides-grid">
       <a href="slides/Proposal_Presentation.pptx" target="_blank" class="slide-card" style="text-decoration:none;color:inherit;">
         <div class="slide-thumb">
@@ -1614,7 +1641,7 @@
           <div class="slide-status"><span class="tag tag-green">Download .pptx</span> · Sep 2025 · 9,317 KB</div>
         </div>
       </a>
-
+ 
       <a href="slides/Progress_Presentation.pptx" target="_blank" class="slide-card" style="text-decoration:none;color:inherit;">
         <div class="slide-thumb">
           <div class="slide-thumb-inner">
@@ -1630,7 +1657,7 @@
           <div class="slide-status"><span class="tag tag-green">Download .pptx</span> · Dec 2025 · 13,968 KB</div>
         </div>
       </a>
-
+ 
       <a href="slides/Progress_Presentation_2.pptx" target="_blank" class="slide-card" style="text-decoration:none;color:inherit;">
         <div class="slide-thumb">
           <div class="slide-thumb-inner">
@@ -1646,7 +1673,7 @@
           <div class="slide-status"><span class="tag tag-green">Download .pptx</span> · Mar 2026 · 265,361 KB</div>
         </div>
       </a>
-
+ 
       <div class="slide-card" style="opacity:0.5;cursor:not-allowed;">
         <div class="slide-thumb">
           <div class="slide-thumb-inner">
@@ -1665,7 +1692,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
@@ -1676,10 +1703,10 @@
         Four IT students from SLIIT specializing in Information Technology, Department of Information Technology.
       </p>
     </div>
-
+ 
     <div class="team-grid">
       <div class="team-card">
-        <div class="team-avatar">WP</div>
+        <div class="team-avatar"><img src="images/nimesh.jpeg" alt="Perera W.B.N." onerror="this.style.display='none'" /></div>
         <div>
           <div class="team-name">Perera W.B.N.</div>
           <div class="team-id">IT22566348</div>
@@ -1692,9 +1719,9 @@
           </ul>
         </div>
       </div>
-
+ 
       <div class="team-card">
-        <div class="team-avatar">HS</div>
+        <div class="team-avatar"><img src="images/himasha.jpeg" alt="Sendanayaka H.K." onerror="this.style.display='none'" /></div>
         <div>
           <div class="team-name">Sendanayaka H.K.</div>
           <div class="team-id">IT22582324</div>
@@ -1707,9 +1734,9 @@
           </ul>
         </div>
       </div>
-
+ 
       <div class="team-card">
-        <div class="team-avatar">DN</div>
+        <div class="team-avatar"><img src="images/thisara.jpeg" alt="Nuwanthi B.D.T." onerror="this.style.display='none'" /></div>
         <div>
           <div class="team-name">Nuwanthi B.D.T.</div>
           <div class="team-id">IT22566102</div>
@@ -1722,9 +1749,9 @@
           </ul>
         </div>
       </div>
-
+ 
       <div class="team-card">
-        <div class="team-avatar">RJ</div>
+        <div class="team-avatar"><img src="images/saduni.jpeg" alt="Jayasekara R.G.S." onerror="this.style.display='none'" /></div>
         <div>
           <div class="team-name">Jayasekara R.G.S.</div>
           <div class="team-id">IT22292940</div>
@@ -1738,23 +1765,35 @@
         </div>
       </div>
     </div>
-
+ 
     <div class="supervisor-block">
       <div class="sup-label">Supervisors · Sri Lanka Institute of Information Technology</div>
       <div class="sup-list">
         <div class="sup-item">
-          <div class="sup-name">Ms. Shashika Lokuliyana</div>
-          <div class="sup-title">Supervisor · SLIIT Faculty of Computing</div>
+          <div class="sup-avatar">
+            <img src="images/shashika.jpeg" alt="Ms. Shashika Lokuliyana"
+              onerror="this.style.display='none'" />
+          </div>
+          <div>
+            <div class="sup-name">Ms. Shashika Lokuliyana</div>
+            <div class="sup-title">Supervisor · SLIIT Faculty of Computing</div>
+          </div>
         </div>
         <div class="sup-item">
-          <div class="sup-name">Ms. Suranjini Silva</div>
-          <div class="sup-title">Co-Supervisor · SLIIT Faculty of Computing</div>
+          <div class="sup-avatar">
+            <img src="images/suranjani.jpeg" alt="Ms. Suranjini Silva"
+              onerror="this.style.display='none'" />
+          </div>
+          <div>
+            <div class="sup-name">Ms. Suranjini Silva</div>
+            <div class="sup-title">Co-Supervisor · SLIIT Faculty of Computing</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
+ 
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -1763,7 +1802,7 @@
       <h2 class="section-title">Get In Touch</h2>
       <p class="section-desc">Reach out to the team regarding the research, collaboration, or inquiries.</p>
     </div>
-
+ 
     <div class="contact-grid">
       <div class="contact-info-block">
         <div class="contact-row">
@@ -1800,7 +1839,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="contact-form">
         <div class="form-title">Send a Message</div>
         <div class="form-group">
@@ -1824,7 +1863,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">SMARTRAIL · WASTE</div>
@@ -1834,7 +1873,7 @@
     Perera W.B.N. &nbsp;·&nbsp; Sendanayaka H.K. &nbsp;·&nbsp; Nuwanthi B.D.T. &nbsp;·&nbsp; Jayasekara R.G.S.
   </div>
 </footer>
-
+ 
 <script>
   function switchTab(event, id) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1842,7 +1881,7 @@
     event.target.classList.add('active');
     document.getElementById('tab-' + id).classList.add('active');
   }
-
+ 
   function handleFormSubmit(btn) {
     btn.textContent = 'Message Sent ✓';
     btn.style.background = 'var(--accent2)';
@@ -1851,11 +1890,11 @@
       btn.style.background = '';
     }, 3000);
   }
-
+ 
   // Scroll-based nav highlighting
   const sections = document.querySelectorAll('section[id]');
   const links = document.querySelectorAll('.nav-links a');
-
+ 
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(s => {
@@ -1866,6 +1905,7 @@
     });
   });
 </script>
-
+ 
 </body>
 </html>
+ 
